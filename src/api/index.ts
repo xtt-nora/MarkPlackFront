@@ -2,8 +2,9 @@ import axios, { AxiosInstance, AxiosError, AxiosRequestConfig, InternalAxiosRequ
 import { ResultEnum } from "@/enums/httpEnum";
 import { AxiosCanceler } from "./helper/axiosCancel";
 import { ResultData } from "@/api/interface";
-import router from "@/router";
-import { LOGIN_URL } from "@/config";
+import { transformRequestData } from "./helper/transform";
+// import router from "@/router";
+// import { LOGIN_URL } from "@/config";
 export interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
     loading?: boolean;
     cancel?: boolean;
@@ -15,7 +16,10 @@ export interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
     // 设置超时时间
     timeout: ResultEnum.TIMEOUT as number,
     // 跨域时候允许携带凭证
-    withCredentials: true
+    withCredentials: true,
+    headers: {
+		'Content-Type': 'application/x-www-form-urlencoded'
+	}
   };
 
   const axiosCanceler = new AxiosCanceler();
@@ -32,6 +36,10 @@ export interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
        */
       this.service.interceptors.request.use(
         (config: CustomAxiosRequestConfig) => {
+           if (config.transformDate !== false) {
+          const contentType = config.headers?.["Content-Type"] as string;
+          config.data = transformRequestData(config.data, contentType);
+        }
           return config;
         },
         (error: AxiosError) => {
