@@ -10,24 +10,6 @@ const __APP_INFO__ = {
   pkg: { dependencies, devDependencies, name, version },
   lastBuildTime: dayjs().format("YYYY-MM-DD HH:mm:ss")
 };
-
-// export default defineConfig({
-//   resolve: {
-//     //设置别名
-//     alias: {
-//       "@": path.resolve(__dirname, "src"),
-//     },
-//   },
-//   define: {
-//     __APP_INFO__: JSON.stringify(__APP_INFO__)
-//   },
-//   plugins: [vue(),UnoCSS()],
-//   server: {
-//     port: 8080, //启动端口
-//     // 设置 https 代理
-//     proxy: createProxy(viteEnv.VITE_PROXY),
-//   },
-// });
 export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
   const root = process.cwd();
   const env = loadEnv(mode, root);
@@ -48,7 +30,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: `@use "@/styles/var.scss";`
+         
         }
       }
     },

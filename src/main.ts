@@ -4,7 +4,6 @@ import pinia from './store'
 import router from './router'
 import "@/styles/reset.scss";
 import "@/styles/element-dark.scss";
-import "@/styles/element.scss";
 import 'virtual:uno.css'
 import ElementPlus from 'element-plus'
 // import 'element-plus/dist/index.css'

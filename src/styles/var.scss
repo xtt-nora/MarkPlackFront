@@ -1,4 +1,5 @@
-$primary-color: #171717;
+/* global css variable */
+$primary-color: var(--el-color-primary);
 $frist-menu-border: #b7b8c1;
 $second-menu-border: #dbdce1;
 $three-menu-border: #c3c5cc;
