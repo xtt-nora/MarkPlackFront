@@ -3,8 +3,13 @@
 </script>
 
 <template>
-    <el-header style="text-align: right; font-size: 12px"
-        class="p-2 h-16 border-b border-b-solid border-b-[#e5e5e5] box-border ">
+    <el-header style="font-size: 12px"
+        class="border-b border-b-solid border-b-[#e5e5e5] box-border flex flex-row justify-between">
+        <div class="p-2 line-height-6 flex items-center">
+            <el-icon size="1.5em">
+                <Notebook />
+            </el-icon>
+        </div>
         <div class="toolbar">
             <el-dropdown>
                 <el-icon style="margin-right: 8px; margin-top: 1px">
@@ -37,6 +42,5 @@
     align-items: center;
     justify-content: center;
     height: 100%;
-    right: 20px;
 }
 </style>

@@ -18,7 +18,10 @@ const value = ref(new Date())
                 <span class="font-500 truncate">侧边栏</span>
                 <span class="text-[.75rem] text-gray-500 truncate">用户信息</span>
             </div>
-            <WindPower style="width: 1em; height: 1em;" />
+            <!-- <WindPower style="width: 1em; height: 1em;" /> -->
+            <el-icon size="1.5em">
+                <Place />
+            </el-icon>
         </div>
         <el-carousel trigger="click" height="150px" class="p-2">
             <el-carousel-item v-for="item in 3" :key="item">
