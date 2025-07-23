@@ -1,23 +1,39 @@
 <script setup lang="ts">
-import { ref } from "vue";
-const item = {
-    date: '2016-05-02',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
+import { useGlobalStore } from "@/store/modules/global";
+import { useKeepAliveStore } from "@/store/modules/keepAlive";
+import { storeToRefs } from "pinia";
+import { h } from "vue";
+const keepAliveStore = useKeepAliveStore();
+const { keepAliveName } = storeToRefs(keepAliveStore);
+const wrapperMap = new Map();
+function createComponentWrapper(component: any, route: any) {
+    if (!component) return;
+    const wrapperName = route.fullPath;
+    let wrapper = wrapperMap.get(wrapperName);
+    if (!wrapper) {
+        wrapper = { name: wrapperName, render: () => h(component) };
+        wrapperMap.set(wrapperName, wrapper);
+    }
+    return h(wrapper);
 }
-const tableData = ref(Array.from({ length: 20 }).fill(item))
 </script>
 
 <template>
     <el-main>
-        <el-scrollbar>
-            <el-table :data="tableData">
-                <el-table-column prop="date" label="Date" width="140" />
-                <el-table-column prop="name" label="Name" width="120" />
-                <el-table-column prop="address" label="Address" />
-            </el-table>
-        </el-scrollbar>
+        <router-view v-slot="{ Component, route }">
+            <transition appear name="fade-transform" mode="out-in">
+                <keep-alive :include="keepAliveName">
+                    <component :is="createComponentWrapper(Component, route)" :key="route.fullPath" />
+                </keep-alive>
+            </transition>
+        </router-view>
     </el-main>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.el-main {
+    padding: 0;
+    width: 100%;
+    height: calc(100% - 60px);
+}
+</style>

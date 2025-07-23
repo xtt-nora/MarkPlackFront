@@ -1,8 +1,7 @@
 <template>
-    <el-container class="layout-container-demo" style="height: 500px">
+    <el-container class="h-full w-full">
         <SideBar />
-
-        <el-container>
+        <el-container direction="vertical" class="h-full w-full">
             <Menu />
             <Main />
         </el-container>
@@ -15,31 +14,4 @@ import Menu from '@/layouts/components/Menu/index.vue'
 import Main from '@/layouts/components/Main/index.vue'
 </script>
 
-<style scoped>
-.layout-container-demo .el-header {
-    position: relative;
-    background-color: var(--el-color-primary-light-7);
-    color: var(--el-text-color-primary);
-}
-
-.layout-container-demo .el-aside {
-    color: var(--el-text-color-primary);
-    background: var(--el-color-primary-light-8);
-}
-
-.layout-container-demo .el-menu {
-    border-right: none;
-}
-
-.layout-container-demo .el-main {
-    padding: 0;
-}
-
-.layout-container-demo .toolbar {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    right: 20px;
-}
-</style>
+<style lang="scss" scoped></style>

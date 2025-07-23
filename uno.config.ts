@@ -1,5 +1,14 @@
 import { defineConfig } from 'unocss'
 
 export default defineConfig({
-  // ...UnoCSS options
+  rules: [
+    [
+      'truncate',
+      {
+        'text-overflow': 'ellipsis',
+        'white-space': 'nowrap',
+        'overflow': 'hidden',
+      },
+    ],
+  ],
 })
