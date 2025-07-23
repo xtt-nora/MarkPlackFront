@@ -1,12 +1,19 @@
 <script setup lang="ts">
+import { useGlobalStore } from '@/store/modules/global';
+import { storeToRefs } from 'pinia';
 
+const { isCollapse } = storeToRefs(useGlobalStore());
+const globalStore = useGlobalStore();
+const isColl = () => {
+    globalStore.setGlobalState("isCollapse", !isCollapse.value);
+};
 </script>
 
 <template>
     <el-header style="font-size: 12px"
         class="border-b border-b-solid border-b-[#e5e5e5] box-border flex flex-row justify-between">
         <div class="p-2 line-height-6 flex items-center">
-            <el-icon size="1.5em">
+            <el-icon size="1.5em" @click="isColl">
                 <Notebook />
             </el-icon>
         </div>

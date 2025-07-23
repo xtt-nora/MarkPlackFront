@@ -7,6 +7,7 @@ export type LanguageType = "zh" | "en" | null;
 /* GlobalState */
 export interface GlobalState {
   primary: string;
+  isCollapse: boolean;
    isDark: boolean,
 }
 

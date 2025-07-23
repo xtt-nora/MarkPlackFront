@@ -6,6 +6,7 @@ import { GlobalState } from "@/store/interface";
 export const useGlobalStore = defineStore('global', {
   state: (): GlobalState=> ({
     primary: DEFAULT_PRIMARY,
+    isCollapse: false,
     isDark: false,
   }),
   actions: {  
