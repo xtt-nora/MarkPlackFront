@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+
+const value = ref(new Date())
 </script>
 
 <template>
@@ -13,7 +16,7 @@
             <WindPower style="width: 1em; height: 1em;" />
         </div>
         <div class="p-2 overflow-y-auto box-border">
-            <vue-hash-calendar />
+            <el-date-picker v-model="value" type="date" placeholder="Pick a day" size="small" />
         </div>
     </el-aside>
 </template>
