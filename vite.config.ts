@@ -1,50 +1,36 @@
-import { ConfigEnv, defineConfig, loadEnv, UserConfig } from "vite";
-import { wrapperEnv } from "./build/getEnv";
-import { createVitePlugins } from "./build/plugins";
-import pkg from "./package.json";
+import { defineConfig, loadEnv, type ConfigEnv, type UserConfig } from "vite";
 import { resolve } from "path";
-import dayjs from "dayjs";
+import { wrapperEnv } from "./build/getEnv";
 import { createProxy } from "./build/proxy";
+import vue from "@vitejs/plugin-vue";
+import pkg from "./package.json";
 const { dependencies, devDependencies, name, version } = pkg;
 const __APP_INFO__ = {
   pkg: { dependencies, devDependencies, name, version },
-  lastBuildTime: dayjs().format("YYYY-MM-DD HH:mm:ss")
 };
 export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
   const root = process.cwd();
   const env = loadEnv(mode, root);
   const viteEnv = wrapperEnv(env);
-
   return {
-    base: viteEnv.VITE_PUBLIC_PATH,
-    root,
+    plugins: [vue()],
     resolve: {
       alias: {
         "@": resolve(__dirname, "./src"),
-        "vue-i18n": "vue-i18n/dist/vue-i18n.cjs.js"
-      }
+      },
     },
     define: {
-      __APP_INFO__: JSON.stringify(__APP_INFO__)
-    },
-    css: {
-      preprocessorOptions: {
-        scss: {
-         
-        }
-      }
+      __APP_INFO__: JSON.stringify(__APP_INFO__),
     },
     server: {
       host: "0.0.0.0",
       port: viteEnv.VITE_PORT,
       open: viteEnv.VITE_OPEN,
       cors: true,
-      // Load proxy configuration from .env.development
-      proxy: createProxy(viteEnv.VITE_PROXY)
+      proxy: createProxy(viteEnv.VITE_PROXY),
     },
-    plugins: createVitePlugins(viteEnv),
     esbuild: {
-      drop: ['console', 'debugger']
+      drop: viteEnv.VITE_DROP_CONSOLE ? ["console", "debugger"] : [],
     },
     build: {
       outDir: "dist",
@@ -67,9 +53,9 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
           // Static resource classification and packaging
           chunkFileNames: "assets/js/[name]-[hash].js",
           entryFileNames: "assets/js/[name]-[hash].js",
-          assetFileNames: "assets/[ext]/[name]-[hash].[ext]"
-        }
-      }
+          assetFileNames: "assets/[ext]/[name]-[hash].[ext]",
+        },
+      },
     },
   };
 });

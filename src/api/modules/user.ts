@@ -1,5 +1,5 @@
-import { Login } from "@/api/interface/index";
 import http from "@/api";
-export const loginApi = (params: Login.ReqLoginForm) => {
-  return http.post<Login.ResLogin>(`/login`, params, { loading: false }); 
+export const PORT1 = "/mark";
+export const editUser = (params: { id: string }) => {
+  return http.post(PORT1 + `/user/edit`, params);
 };
