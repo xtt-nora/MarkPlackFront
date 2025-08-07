@@ -1,4 +1,4 @@
-import { CustomAxiosRequestConfig } from "../index";
+import type { CustomAxiosRequestConfig } from "../index";
 import qs from "qs";
 
 // 声明一个 Map 用于存储每个请求的标识和取消函数
@@ -47,7 +47,7 @@ export class AxiosCanceler {
    * @description: 清空所有pending
    */
   removeAllPending() {
-    pendingMap.forEach(controller => {
+    pendingMap.forEach((controller) => {
       controller && controller.abort();
     });
     pendingMap.clear();

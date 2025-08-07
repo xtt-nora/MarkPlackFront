@@ -3,3 +3,6 @@ export const PORT1 = "/mark";
 export const editUser = (params: { id: string }) => {
   return http.post(PORT1 + `/user/edit`, params);
 };
+export const loginApi = (params: { account: string; password: string }) => {
+  return http.post(`/login`, params);
+};

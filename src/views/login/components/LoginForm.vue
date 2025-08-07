@@ -3,7 +3,17 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { loginApi } from '@/api/modules/user'
+import { ref } from 'vue'
+const loginForm = ref({
+    account: '',
+    password: ''
+})
+const login = async () => {
+    const res = await loginApi(loginForm.value)
+    console.log(res)
 
+}
 </script>
 
 <template>
@@ -46,8 +56,10 @@ import { Label } from '@/components/ui/label'
                         </div>
                         <div class="grid gap-6">
                             <div class="grid gap-2">
-                                <Label html-for="email">Email</Label>
-                                <Input id="email" type="email" placeholder="m@example.com" required />
+                                <Label html-for="email">Account</Label>
+                                <Input id="email" required v-model="loginForm.account" />
+
+
                             </div>
                             <div class="grid gap-2">
                                 <div class="flex items-center">
@@ -56,9 +68,9 @@ import { Label } from '@/components/ui/label'
                                         Forgot your password?
                                     </a>
                                 </div>
-                                <Input id="password" type="password" required />
+                                <Input id="password" type="password" required v-model="loginForm.password" />
                             </div>
-                            <Button type="submit" class="w-full">
+                            <Button type="submit" class="w-full" @click="login">
                                 Login
                             </Button>
                         </div>

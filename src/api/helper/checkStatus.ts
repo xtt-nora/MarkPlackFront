@@ -1,6 +1,4 @@
-import { useGlobalStore } from "@/stores/modules/global";
-import { AxiosResponse } from "axios";
-import { ElMessage } from "element-plus";
+import type { AxiosResponse } from "axios";
 
 /**
  * @description: 校验网络请求状态码
@@ -8,45 +6,41 @@ import { ElMessage } from "element-plus";
  * @return void
  */
 export const checkStatus = (status: number, response?: AxiosResponse) => {
-  const globalStore = useGlobalStore();
-
   switch (status) {
     case 400:
-      ElMessage.error("请求失败！请您稍后重试");
+      console.error("请求失败！请您稍后重试");
       break;
     case 4001:
-      ElMessage.error("登录失效！请您重新登录");
+      console.error("登录失效！请您重新登录");
       break;
     case 403:
-      ElMessage.error("当前账号无权限访问！");
+      console.error("当前账号无权限访问！");
       break;
     case 404:
-      ElMessage.error("你所访问的资源不存在！");
+      console.error("你所访问的资源不存在！");
       break;
     case 405:
-      ElMessage.error("请求方式错误！请您稍后重试");
+      console.error("请求方式错误！请您稍后重试");
       break;
     case 408:
-      ElMessage.error("请求超时！请您稍后重试");
+      console.error("请求超时！请您稍后重试");
       break;
     case 480:
-      globalStore.setGlobalState("isRegister", true);
-      globalStore.setGlobalState("registerMessage", response?.data.split("：") || "");
-      ElMessage.error("请联系服务商进行注册！");
+      console.error("请联系服务商进行注册！");
       break;
     case 500:
-      ElMessage.error("服务异常！");
+      console.error("服务异常！");
       break;
     case 502:
-      ElMessage.error("网关错误！");
+      console.error("网关错误！");
       break;
     case 503:
-      ElMessage.error("服务不可用！");
+      console.error("服务不可用！");
       break;
     case 504:
-      ElMessage.error("网关超时！");
+      console.error("网关超时！");
       break;
     default:
-      ElMessage.error("请求失败！");
+      console.error("请求失败！");
   }
 };
